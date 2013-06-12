@@ -13,16 +13,7 @@
     .scale(.94)
     .scaleExtent([0.5, 10.0])
     .on('zoom', updateZoom);
-    
-  var layer = map.append('g')
-    .attr('id', 'layer');
-    
-  var counties = layer.append('g')
-    .attr('id', 'counties')
-    .selectAll('path');
   
-  updateZoom();
-
   function updateZoom() {
     var scale = zoom.scale();
     layer.attr('transform',
@@ -34,7 +25,7 @@
   carto = d3.cartogram()
     .projection(proj)
     .value(function(d) {
-      //console.log(d);
+      console.log(d);
       //return d.POPULATION;
       return Math.random() * 100;
     });
@@ -44,8 +35,7 @@
     console.log(topo);
   
     var features = carto(topo, topo.objects['mn-county2010.geo'].geometries);
-    console.log(features);
-    layer.selectAll('path')
+    map.selectAll('path')
       .data(features)
       .enter()
       .append('path')
